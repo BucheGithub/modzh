@@ -7,21 +7,25 @@ conf = require("config")
 ease = require("ease")
 
 LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
-	if #vfxQueue < 1 and #objToRotate < 1 then
+	if #objToRotate < 1 then
 		return
 	end
-
-	for i = #vfxQueue, 0, -1 do
-		if vfxQueue[i](dt) then
-			table.remove(vfxQueue, i)
-		end
-	end
-
 	for _, obj in ipairs(objToRotate) do
 		if obj and obj.pivot then
 			obj.pivot:RotateLocal(0, dt, 0)
 		else
 			obj:RotateLocal(0, dt, 0)
+		end
+	end
+end)
+
+LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
+	if #vfxQueue < 1 then
+		return
+	end
+	for i = #vfxQueue, 0, -1 do
+		if vfxQueue[i](dt) then
+			table.remove(vfxQueue, i)
 		end
 	end
 end)
