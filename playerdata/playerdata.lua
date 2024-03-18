@@ -24,13 +24,14 @@ loadData = function(p)
 	kvs:Get("data", function(success, results)
 		if not success and loadRetries < REQUEST_FAIL_MAX then
 			loadRetries = loadRetries + 1
-			Timer(REQUEST_FAIL_RETRY_DELAY, loadData(p))
+			Timer(REQUEST_FAIL_RETRY_DELAY, function()
+				loadData(p)
+			end)
 		else
 			loadRetries = 0
 			if results.data then
 				for _, dataKey in ipairs(dataKeys) do
 					p[dataKey] = results.data[dataKey]
-					print(results.data[dataKey])
 				end
 				LocalEvent:Send(playerData.LocalEvent.OnDataLoad)
 			else
@@ -49,7 +50,9 @@ saveData = function(p)
 	kvs:Set("data", data, function(success)
 		if not success and saveRetries < REQUEST_FAIL_MAX then
 			saveRetries = saveRetries + 1
-			Timer(REQUEST_FAIL_RETRY_DELAY, saveData(p))
+			Timer(REQUEST_FAIL_RETRY_DELAY, function()
+				saveData(p)
+			end)
 		else
 			if saveRetries <= REQUEST_FAIL_MAX then
 				LocalEvent:Send(playerData.LocalEvent.OnDataSave)
@@ -66,7 +69,9 @@ resetData = function(p)
 	kvs:remove("data", function(success)
 		if not success and resetRetries < REQUEST_FAIL_MAX then
 			resetRetries = resetRetries + 1
-			Timer(REQUEST_FAIL_RETRY_DELAY, resetData(p))
+			Timer(REQUEST_FAIL_RETRY_DELAY, function()
+				resetData(p)
+			end)
 		else
 			if resetRetries <= REQUEST_FAIL_MAX then
 				LocalEvent:Send(playerData.LocalEvent.OnDataReset)
