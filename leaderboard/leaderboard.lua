@@ -62,6 +62,12 @@ local _checkAgainstPlayerList = function(userId)
 	end)
 end
 
+local _setFriendsData = function()
+	for _, v in ipairs(friendList) do
+		friendsData[v.id] = playersData[v.id]
+	end
+end
+
 local _getPlayerFriends = function()
 	require("api"):getFriends(function(success, friends)
 		if success then
@@ -69,12 +75,6 @@ local _getPlayerFriends = function()
 			_setFriendsData()
 		end
 	end)
-end
-
-local _setFriendsData = function()
-	for _, v in ipairs(friendList) do
-		friendsData[v.id] = playersData[v.id]
-	end
 end
 
 leaderboard.init = function(_, dataSaveFunction)
