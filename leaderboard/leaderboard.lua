@@ -79,6 +79,7 @@ end
 
 leaderboard.init = function(_, dataSaveFunction)
 	saveFunction = dataSaveFunction
+	store = KeyValueStore(prefix)
 end
 
 leaderboard.getPlayerData = function(p)
