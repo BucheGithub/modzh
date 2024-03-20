@@ -14,6 +14,15 @@ local friendList = {}
 local prefix = "leaderboard."
 local playersListKey = "_playersList"
 
+local contains = function(t, v)
+	for _, value in ipairs(t) do
+		if value == v then
+			return true
+		end
+	end
+	return false
+end
+
 local saveFunction = function(_)
 	return {}
 end
@@ -55,7 +64,7 @@ local _checkAgainstPlayerList = function(userId)
 			return
 		end
 		playersList = results[playersListKey] or {}
-		if not table.contains(playersList, userId) then
+		if not contains(playersList, userId) then
 			table.insert(playersList, userId)
 			store:Set(playersListKey, playersList, function(_) end)
 		end
@@ -114,15 +123,6 @@ if _isClient() then
 			leaderboard.refresh()
 		end)
 	end)
-end
-
-table.contains = function(t, v)
-	for _, value in ipairs(t) do
-		if value == v then
-			return true
-		end
-	end
-	return false
 end
 
 return leaderboard
