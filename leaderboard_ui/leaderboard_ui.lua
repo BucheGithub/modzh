@@ -25,12 +25,12 @@ local _createUI = function()
 			self.pos.X = Screen.Width - Screen.SafeArea.Right - self.Width - deviceMargin + _config.offset.X
 		elseif _config.pos == "topLeft" then
 			self.pos.Y = Screen.Height - Screen.SafeArea.Top - self.Height - margin + _config.offset.Y
-			self.pos.X = Screen.SafeArea.Left + deviceMargin
+			self.pos.X = Screen.SafeArea.Left + deviceMargin + _config.offset.X
 		elseif _config.pos == "bottomLeft" then
-			self.pos.Y = Screen.SafeArea.bottomLeft + deviceMargin
-			self.pos.X = Screen.SafeArea.Left + deviceMargin
+			self.pos.Y = Screen.SafeArea.Bottom + deviceMargin + _config.offset.Y
+			self.pos.X = Screen.SafeArea.Left + deviceMargin + _config.offset.X
 		elseif _config.pos == "bottomRight" then
-			self.pos.Y = Screen.SafeArea.bottomLeft + deviceMargin
+			self.pos.Y = Screen.SafeArea.Bottom + deviceMargin + _config.offset.Y
 			self.pos.X = Screen.Width - Screen.SafeArea.Right - self.Width - deviceMargin + _config.offset.X
 		end
 	end
