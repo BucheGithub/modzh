@@ -23,17 +23,16 @@ local _createUI = function()
 		if _config.pos == "topRight" then
 			self.pos.Y = Screen.Height - Screen.SafeArea.Top - self.Height - margin + _config.offset.Y
 			self.pos.X = Screen.Width - Screen.SafeArea.Right - self.Width - deviceMargin + _config.offset.X
-        elseif _config.pos = "topLeft" then
-            self.pos.Y = Screen.Height - Screen.SafeArea.Top - self.Height - margin + _config.offset.Y
-            self.pos.X = Screen.SafeArea.Left + deviceMargin
-        elseif _config.pos = "bottomLeft" then
-            self.pos.Y = Screen.SafeArea.bottomLeft + deviceMargin
-            self.pos.X = Screen.SafeArea.Left + deviceMargin
-        elseif _config.pos = "bottomRight" then
-            self.pos.Y = Screen.SafeArea.bottomLeft + deviceMargin
-            self.pos.X = Screen.Width - Screen.SafeArea.Right - self.Width - deviceMargin + _config.offset.X
-        end
-		
+		elseif _config.pos == "topLeft" then
+			self.pos.Y = Screen.Height - Screen.SafeArea.Top - self.Height - margin + _config.offset.Y
+			self.pos.X = Screen.SafeArea.Left + deviceMargin
+		elseif _config.pos == "bottomLeft" then
+			self.pos.Y = Screen.SafeArea.bottomLeft + deviceMargin
+			self.pos.X = Screen.SafeArea.Left + deviceMargin
+		elseif _config.pos == "bottomRight" then
+			self.pos.Y = Screen.SafeArea.bottomLeft + deviceMargin
+			self.pos.X = Screen.Width - Screen.SafeArea.Right - self.Width - deviceMargin + _config.offset.X
+		end
 	end
 
 	lbTexts = {}
@@ -41,11 +40,11 @@ local _createUI = function()
 		lbTexts[i] = uikit:createText("#" .. i .. " ??? --", Color.White)
 		lbTexts[i].object.FontSize = 24
 		lbTexts[i].parentDidResize = function(self)
-            if _config.pos = "bottomRight" or "topRight" then 
-                self.object.Anchor = { 0, 1 }
-            elseif _config.pos = "bottomLeft" or "topLeft" then
-                self.object.Anchor = { 1, 0 }
-            end
+			if _config.pos == "bottomRight" or "topRight" then
+				self.object.Anchor = { 0, 1 }
+			elseif _config.pos == "bottomLeft" or "topLeft" then
+				self.object.Anchor = { 1, 0 }
+			end
 			self.pos.X = margin
 			self.pos.Y = widgetContainer.Height - self.Height * (i - 1) - margin
 		end
