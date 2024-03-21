@@ -31,6 +31,12 @@ local saveFunction = function(p)
 	return data
 end
 
+local _setFriendsData = function()
+	for _, v in ipairs(friendList) do
+		friendsData[v.id] = playersData[v.id]
+	end
+end
+
 local _getFromKvs = function(userId, sendEvent)
 	store:Get(userId, function(success, results)
 		if not success then
@@ -74,12 +80,6 @@ local _checkAgainstPlayerList = function(userId)
 			store:Set(playersListKey, playersList, function(_) end)
 		end
 	end)
-end
-
-local _setFriendsData = function()
-	for _, v in ipairs(friendList) do
-		friendsData[v.id] = playersData[v.id]
-	end
 end
 
 local _getPlayerFriends = function()
