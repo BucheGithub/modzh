@@ -23,8 +23,12 @@ local contains = function(t, v)
 	return false
 end
 
-local saveFunction = function(_)
-	return {}
+local saveFunction = function(p)
+	local data = { -- Default for leaderboard_ui, replace with the data you like if you don't use leaderboard_ui
+		username = p.Username,
+		score = p.highScore,
+	}
+	return data
 end
 
 local _getFromKvs = function(userId, sendEvent)
@@ -37,7 +41,8 @@ local _getFromKvs = function(userId, sendEvent)
 		if not sendEvent then
 			return
 		end
-		LocalEvent:Send(leaderboard.LocalEvent.OnRefresh, playersData)
+		_setFriendsData()
+		LocalEvent:Send(leaderboard.LocalEvent.OnRefresh, playersData, friendsData)
 	end)
 end
 
@@ -109,7 +114,6 @@ end
 
 leaderboard.refresh = function(_)
 	_getAllFromKvs()
-	_setFriendsData()
 end
 
 _isClient = function()
