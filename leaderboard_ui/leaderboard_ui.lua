@@ -95,4 +95,12 @@ leaderboard_ui.toggleWidget = function(_)
 	widgetContainer:toggle()
 end
 
+leaderboard_ui.show = function(_)
+	widgetContainer:show()
+end
+
+leaderboard_ui.hide = function(_)
+	widgetContainer:hide()
+end
+
 return leaderboard_ui
