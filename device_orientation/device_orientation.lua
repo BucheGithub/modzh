@@ -18,7 +18,7 @@ local _isLandscape = function()
 end
 
 local _isPortrait = function()
-	return Screen.Width > Screen.Height
+	return Screen.Width < Screen.Height
 end
 
 local createFrame = function()
@@ -29,7 +29,9 @@ local createFrame = function()
 	end
 	rotateFrame:hide()
 
-	rotateText = uikit:createText("Please rotate your device to Landscape Mode", Color.White, "big")
+	local txt = _config.forcedOrientation == "landscape" and "Landscape" or "Portrait"
+
+	rotateText = uikit:createText("Please rotate your device to " .. txt .. " Mode", Color.White, "big")
 	rotateText.object.Anchor = { 0.5, 0.5 }
 	rotateText.parentDidResize = function(self)
 		self.object.MaxWidth = Screen.Width * 0.8
