@@ -8,6 +8,7 @@ local defaultConfig = {
 }
 
 local conf = require("config")
+local uikit = require("uikit")
 
 local _config
 local _eventSent = false
