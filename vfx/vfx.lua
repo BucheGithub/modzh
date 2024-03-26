@@ -55,6 +55,8 @@ vfx.shake = function(shapeOrObj, config)
 	table.insert(vfxQueue, vfxTick)
 end
 
+scaleBounceObjects = {}
+
 vfx.scaleBounce = function(shape, config)
 	local defaultConfig = {
 		duration = 0.2,
@@ -62,10 +64,17 @@ vfx.scaleBounce = function(shape, config)
 	}
 	local _config = conf:merge(defaultConfig, config)
 
-	local initialScale = shape.Scale:Copy()
+	local initialScale = scaleBounceObjects[shape] and scaleBounceObjects[shape] or shape.Scale:Copy()
+	scaleBounceObjects[shape] = initialScale
+
 	ease:outElastic(shape, _config.duration * 0.5, {
 		onDone = function()
-			ease:outElastic(shape, _config.duration).Scale = initialScale
+			ease:outElastic(shape, _config.duration, {
+				onDone = function()
+					scaleBounceObjects[shape] = nil
+				end,
+			}).Scale =
+				initialScale
 		end,
 	}).Scale = initialScale
 		* (1 + _config.range)
