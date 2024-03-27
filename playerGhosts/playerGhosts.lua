@@ -114,7 +114,7 @@ if type(Client.IsMobile) == "boolean" then
 	end)
 
 	LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(p)
-		--local gameName = "[Hub]" --TODO:: Add game name from real data
+		--local gameName = "[Hub]" --TODO:: Add game name from real data when available
 		--print(p.Username .. " joined " .. gameName)
 
 		local text = p.Username .. " (in another world)" -- .. gameName .. ")"
